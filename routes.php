@@ -2,4 +2,4 @@
 
 $router instanceof AltoRouter;
 
-$router->map("GET", "/", "App\Controller\StudentController#listStudents");
+$router->map("GET", "/students/[i:id]", "App\Controller\StudentController#getStudent");

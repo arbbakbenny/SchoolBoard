@@ -19,8 +19,6 @@ $container = $builder->build();
 $router = $container->get(AltoRouter::class);
 $router instanceof AltoRouter;
 
-$router->setBasePath('app/');
-
 require ".." . DIRECTORY_SEPARATOR . "routes.php";
 
 $match = $router->match();
@@ -36,10 +34,9 @@ if( is_array($match) ) {
             $method = $parts[1];
             $controller = $container->get($class);
 
-            echo $controller->$method(
-                    $container->get(\Symfony\Component\HttpFoundation\Request::class), 
-                    $match['params']
-            );
+            $request = $container->get(\Symfony\Component\HttpFoundation\Request::class);
+            $request instanceof Symfony\Component\HttpFoundation\Request;
+            return call_user_func([$controller, $method], ...array_values($match['params']));
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
             throw $ex;

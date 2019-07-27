@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AbstractController;
 use App\Model\Repository\StudentRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class StudentController extends AbstractController {
     
@@ -13,8 +14,9 @@ class StudentController extends AbstractController {
         $this->repository = $repository;
     }
     
-    public function listStudents()
+    public function getStudent(int $id)
     {
-        $students = $this->repository->getAll();
+        $student = $this->repository->find($id);
+        echo json_encode($student);
     }
 }

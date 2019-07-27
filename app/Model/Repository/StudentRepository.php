@@ -14,4 +14,18 @@ class StudentRepository extends AbstractRepository {
                 ->fetchAll(\PDO::FETCH_CLASS, Student::class);
     }
     
+    public function find(int $id): ?Student
+    {
+        $statement = $this
+                ->db
+                ->prepare("SELECT * FROM students WHERE id = :id")
+        ;
+        $statement instanceof \PDOStatement;
+        $statement->bindParam("id", $id);
+        $statement->execute();
+        
+        return ($result = $statement->fetchObject(Student::class)) instanceof Student ? $result : null;
+        
+    }
+    
 }
