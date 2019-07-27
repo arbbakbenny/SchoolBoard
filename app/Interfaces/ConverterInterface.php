@@ -6,6 +6,6 @@ use App\Model\Domain\Student;
 
 interface ConverterInterface {
     
-    public function convert(Student $student): string;
+    public function convert(array $data): string;
     
 }

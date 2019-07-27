@@ -9,7 +9,7 @@ class Report {
     
     public function createReport(Student $student, ConverterInterface $converter): ?string
     {
-        return null;
+        echo $converter->convert($student);
     }
     
 }

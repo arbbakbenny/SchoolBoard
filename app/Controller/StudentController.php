@@ -27,7 +27,12 @@ class StudentController extends AbstractController {
         $student = $this->repository->find($id);
         
         if ($student instanceof Student) {
-            $this->report->createReport($student, ConverterFactory::resolve($student->board));
+            
+            $grades = $this->repository->getGrades($id);
+            
+            $data = new \App\Service\Data($student, $grades, $rule);
+            
+            $this->report->createReport($data, ConverterFactory::resolve($student->board));
         }
         
     }

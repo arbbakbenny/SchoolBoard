@@ -28,4 +28,17 @@ class StudentRepository extends AbstractRepository {
         
     }
     
+    public function getGrades(int $id)): array
+    {
+        $statement = $this
+                ->db
+                ->prepare("SELECT * FROM grades WHERE student_id = :id")
+        ;
+        $statement instanceof \PDOStatement;
+        $statement->bindParam("student_id", $id);
+        $statement->execute();
+        
+        return !empty($result = $statement->fetchAll()) ? $result : [];
+    }
+    
 }

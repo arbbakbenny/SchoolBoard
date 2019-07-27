@@ -3,12 +3,13 @@
 namespace App\Converter;
 
 use App\Interfaces\ConverterInterface;
+use App\Service\Data;
 
 class JsonConverter implements ConverterInterface {
     
-    public function convert(\App\Model\Domain\Student $student): string
+    public function convert(Data $data): string
     {
-        return json_encode(get_object_vars($student));
+        return json_encode(get_object_vars($data));
     }
 
 }
