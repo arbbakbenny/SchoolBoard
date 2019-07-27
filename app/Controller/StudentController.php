@@ -4,19 +4,31 @@ namespace App\Controller;
 
 use App\Controller\AbstractController;
 use App\Model\Repository\StudentRepository;
-use Symfony\Component\HttpFoundation\Request;
+use App\Service\Report;
+use App\Factory\ConverterFactory;
+use App\Model\Domain\Student;
 
 class StudentController extends AbstractController {
     
     protected $repository;
     
-    public function __construct(StudentRepository $repository) {
+    protected $report;
+    
+    public function __construct(
+        StudentRepository $repository,
+        Report $report
+    ) {
         $this->repository = $repository;
+        $this->report = $report;
     }
     
     public function getStudent(int $id)
     {
         $student = $this->repository->find($id);
-        echo json_encode($student);
+        
+        if ($student instanceof Student) {
+            $this->report->createReport($student, ConverterFactory::resolve($student->board));
+        }
+        
     }
 }
