@@ -6,6 +6,14 @@ require ".." . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.
 error_reporting(E_ALL);
 
 $builder = new \DI\ContainerBuilder();
+$builder->useAutowiring(true);
+
+$builder->addDefinitions([
+    PDO::class => function ($container) {
+        return new PDO("sqlite:../database/studentboard.sqlite");
+    }
+]);
+
 $container = $builder->build();
 
 $router = $container->get(AltoRouter::class);
@@ -28,9 +36,12 @@ if( is_array($match) ) {
             $method = $parts[1];
             $controller = $container->get($class);
 
-            echo $controller->$method($match['params']);
+            echo $controller->$method(
+                    $container->get(\Symfony\Component\HttpFoundation\Request::class), 
+                    $match['params']
+            );
         } catch (Exception $ex) {
-            echo $ex->getMessage();
+            var_dump($ex->getMessage());
             throw $ex;
         }
     }
