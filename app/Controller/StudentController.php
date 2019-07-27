@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Controller\AbstractController;
 use App\Model\Repository\StudentRepository;
 use App\Service\Report;
-use App\Factory\ConverterFactory;
+use App\Factory\Factory;
 use App\Model\Domain\Student;
+use App\Service\Data;
 
 class StudentController extends AbstractController {
     
@@ -30,9 +31,8 @@ class StudentController extends AbstractController {
             
             $grades = $this->repository->getGrades($id);
             
-            $data = new \App\Service\Data($student, $grades, $rule);
-            
-            $this->report->createReport($data, ConverterFactory::resolve($student->board));
+            $data = new Data($student, $grades, Factory::resolveRule($student->board));
+//            $this->report->createReport($data, Factory::resolveConverter($student->board));
         }
         
     }

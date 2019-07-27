@@ -28,7 +28,7 @@ class StudentRepository extends AbstractRepository {
         
     }
     
-    public function getGrades(int $id)): array
+    public function getGrades(int $id): array
     {
         $statement = $this
                 ->db
