@@ -15,7 +15,6 @@ class StudentController extends AbstractController {
     
     public function listStudents()
     {
-        var_dump($this->repository->getAll());
-        echo "A";
+        view("studentall.php", ["students" => $this->repository->getAll()] );
     }
 }
