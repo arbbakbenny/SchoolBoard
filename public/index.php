@@ -14,15 +14,6 @@ $builder->addDefinitions([
     }
 ]);
 
-
-function view(string $file, array $params) {
-    foreach ($params as $varName => $param) {
-        $$varName = $param;
-    }
-    unset($params);
-    require __DIR__ . "/../app/View/".$file;
-}
-
 $container = $builder->build();
 
 $router = $container->get(AltoRouter::class);
