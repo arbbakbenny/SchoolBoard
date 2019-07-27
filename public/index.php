@@ -34,11 +34,10 @@ if( is_array($match) ) {
             $method = $parts[1];
             $controller = $container->get($class);
 
-            $request = $container->get(\Symfony\Component\HttpFoundation\Request::class);
-            $request instanceof Symfony\Component\HttpFoundation\Request;
             return call_user_func([$controller, $method], ...array_values($match['params']));
-        } catch (Exception $ex) {
+        } catch (Throwable $ex) {
             var_dump($ex->getMessage());
+            var_dump($ex->getTrace());
             throw $ex;
         }
     }

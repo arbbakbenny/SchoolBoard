@@ -8,6 +8,7 @@ use App\Service\Report;
 use App\Factory\Factory;
 use App\Model\Domain\Student;
 use App\Service\Data;
+use App\Converter\JsonConverter;
 
 class StudentController extends AbstractController {
     
@@ -25,6 +26,8 @@ class StudentController extends AbstractController {
     
     public function getStudent(int $id)
     {
+//        new JsonConverter(); // does not work?????
+        
         $student = $this->repository->find($id);
         
         if ($student instanceof Student) {
@@ -32,6 +35,7 @@ class StudentController extends AbstractController {
             $grades = $this->repository->getGrades($id);
             
             $data = new Data($student, $grades, Factory::resolveRule($student->board));
+            echo 'a';
 //            $this->report->createReport($data, Factory::resolveConverter($student->board));
         }
         

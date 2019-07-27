@@ -8,9 +8,11 @@ use App\Service\Data;
 
 class Report {
     
-    public function createReport(Data $data, ConverterInterface $converter): ?string
+    public function createReport(Data $data, ConverterInterface $converter)
     {
-        echo $converter->convert($student->get());
+        echo 'sadf';
+        return 'asdfadsf';
+        die(__FILE__);
     }
     
 }

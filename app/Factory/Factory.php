@@ -6,19 +6,22 @@ use App\Interfaces\ConverterInterface;
 use App\Interfaces\RuleInterface;
 use App\Service\Rule\CSM;
 use App\Service\Rule\CSMB;
+use App\Converter\JsonConverter;
 
 class Factory {
     
-    public static function resolveConverter(string $board): ConverterInterface
+    public static function resolveConverter(string $board)
     {
         switch ($board) {
             case "CSM":
-                return new \App\Converter\JsonConverter();
+                $c = new JsonConverter();
                 break;
             case "CSMB":
-                return new \App\Converter\JsonConverter();
+                $c = new JsonConverter();
                 break;
         }
+        
+        return $c;
     }
     
     public static function resolveRule(string $board): RuleInterface
@@ -30,6 +33,8 @@ class Factory {
             case "CSMB":
                 return new CSMB();
                 break;
+            default:
+                throw new Exception("Unknown");
         }
     }
     
